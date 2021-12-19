@@ -1,0 +1,30 @@
+---
+title: "Teaching"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 1
+    #code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
+
+#### Instructor
+1. MGMT 3123, Oklahoma State University: **Managing Behavior in Organizations**, Spring 2021 
+
+2. MNGT 361, University of Nebraska-Lincoln: **Human Resource Management**, Spring 2019 
+
+#### Graduate Assistant
+1. MGMT 6553: **Management Research Methods III** (Executive PhD; Dr. Nikolaos Dimotakis), Fall 2021, Fall 2020, Fall 2019
+
+2. BADM 6100: **Management Research Methods III** (Traditional PhD; Dr. Nikolaos Dimotakis), Spring 2020
+
+3. MGMT 4543: **Human Resource Analytics** (Undergraduate; Dr. Nikolaos Dimotakis), Spring 2020
+
+#### Guest Lecturer
+1. MGMT 6553: **Management Research Methods III** (Executive PhD; Dr. Nikolaos Dimotakis), Fall 2020

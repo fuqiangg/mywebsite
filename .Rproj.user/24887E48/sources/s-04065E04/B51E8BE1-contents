@@ -1,0 +1,30 @@
+---
+title: "Journal"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 1
+    #code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
+
+# R Journey
+I would love to explore more with R! 
+
+## Simulation 
+2021 | 3 | 7 Last compiled: `r Sys.Date()`
+
+I am learning how to simulate data in R. Say I want to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then plot a histogram.
+
+```{r}
+samples <- rnorm(100, mean=0, sd=1)
+hist(samples)
+```
+
+
