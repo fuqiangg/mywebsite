@@ -347,13 +347,266 @@ div.tocify {
 
 
 <p>I am passionate to explore more with R! (more to come)</p>
-<div id="simulation" class="section level4">
-<h4>Simulation</h4>
+<p>I’ll first load some packages so I can use all the functions later</p>
+<pre class="r"><code>library(here)
+library(multilevel)
+library(lme4)
+library(tidyverse)
+library(metafor)
+library(readxl)
+library(tidyverse)
+library(MASS)
+library(ggplot2)
+library(SimMultiCorrData)
+library(rlist)
+library(haven)
+library(writexl)
+library(rstatix)
+library(purrr) 
+library(broom) 
+library(faux)
+library(multcomp)
+library(jtools) # for summ()
+library(mvtnorm) # References rmvnorm()
+library(ellipse) # References ellipse()</code></pre>
+<div id="simulation" class="section level1">
+<h1>Simulation</h1>
 <p>2021 | 3 | 7 Last compiled: 2021-12-19</p>
 <p>I am learning how to simulate data in R. Say I want to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then plot a histogram.</p>
 <pre class="r"><code>samples &lt;- rnorm(100, mean=0, sd=1)
 hist(samples)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="Journal_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="basic-functions-for-simulations" class="section level1">
+<h1>Basic Functions for Simulations</h1>
+<p>Let’s try some basic distributions (reference: <a href="https://aosmith.rbind.io" class="uri">https://aosmith.rbind.io</a>)</p>
+<pre class="r"><code>#Generating random numbers
+#Using vectors of values for the parameter arguments
+rnorm(n = 10, mean = c(0, 5, 20), sd = c(1, 5, 20))</code></pre>
+<pre><code>##  [1]  0.6029337 10.4268528 70.0770101 -1.7427271 12.5175698 38.6879607
+##  [7] -1.3948903  7.3217429 10.0007294 -0.3245730</code></pre>
+<pre class="r"><code>  #Things are different for the n argument. If a vector is passed to n, the length of that vector is taken to be the number required (see Arguments section of documentation for details). Here’s an example. Since the vector for n is length 3, we only get 3 values.This has caught me before, as I would expect this code to give me different numbers per group instead of ignoring the information in the vector.
+rnorm(n = c(1, 2, 3), mean = c(0, 5, 20), sd = c(1, 1, 1))</code></pre>
+<pre><code>## [1] -0.04367568  2.76384295 19.53040473</code></pre>
+<pre class="r"><code>#runif() 
+ #pulls from the uniform distribution. The uniform distribution is a continuous    distribution, with numbers uniformly distributed between some minimum and maximum.
+runif(n = 5, min = 0, max = 1)</code></pre>
+<pre><code>## [1] 0.40988053 0.06414436 0.53739693 0.70213513 0.94970398</code></pre>
+<pre class="r"><code>#Discrete counts with rpois() 
+#An alternative to the Poisson distribution for discrete integers is the negative binomial distribution. Packages MASS has a function called rnegbin() for random number generation from the negative binomial distribution.
+ #generating discrete integers (including 0) from a Poisson distribution with rpois().
+#The single parameter argument, lambda, is the mean. It has no default setting so must always be defined by the user.
+rpois(n = 5, lambda = 2.5)</code></pre>
+<pre><code>## [1] 1 2 5 1 5</code></pre>
+<pre class="r"><code>y = rpois(10000, lambda = 5)
+summary(y)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.000   3.000   5.000   4.988   6.000  17.000</code></pre>
+<pre class="r"><code>hist(y) #mild right-skew when we draw a histogram of the values.</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>y = rpois(10000, lambda = 100) #Poisson distribution with a mean of 100. The range of values is pretty narrow; there are no values even remotely close to 0, and distribution is now pretty symmetric.
+summary(y)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    60.0    93.0   100.0   100.1   107.0   139.0</code></pre>
+<pre class="r"><code>hist(y) </code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre class="r"><code>#Generate character vectors with rep()
+rep(letters[1:2], each = 3) #each </code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;a&quot; &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot;</code></pre>
+<pre class="r"><code>rep(letters[1:2], times = 3) #The times argument can be used when we want to repeat the whole vector rather than repeating it element-wise.</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;a&quot; &quot;b&quot; &quot;a&quot; &quot;b&quot;</code></pre>
+<pre class="r"><code>rep(letters[1:2], times = c(2, 4))</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot;</code></pre>
+<pre class="r"><code>rep(letters[1:2], each = 2, times = 3)</code></pre>
+<pre><code>##  [1] &quot;a&quot; &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;a&quot; &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;a&quot; &quot;a&quot; &quot;b&quot; &quot;b&quot;</code></pre>
+<pre class="r"><code>rep(letters[1:2], each = 2, length.out = 7)</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;a&quot; &quot;a&quot; &quot;b&quot;</code></pre>
+</div>
+<div id="examples" class="section level1">
+<h1>Examples</h1>
+<pre class="r"><code>#1. Simulate data with no differences among two groups
+group  = rep(letters[1:2], each = 3)
+factor = rep(LETTERS[3:5], times = 2)
+response = rnorm(n = 6, mean = 0, sd = 1) 
+data.frame(group, factor, response )</code></pre>
+<pre><code>##   group factor   response
+## 1     a      C  0.2250695
+## 2     a      D -0.3906908
+## 3     a      E  1.4977746
+## 4     b      C -1.3932394
+## 5     b      D  0.1447946
+## 6     b      E  1.6680878</code></pre>
+<pre class="r"><code>#2. Simultae data with a difference among groups
+group_two = rep(letters[1:2], times = 3) #or length.out = 6
+response_two = rnorm(n = 6, mean = c(5, 10), sd = 1)
+data.frame(group_two, response_two)</code></pre>
+<pre><code>##   group_two response_two
+## 1         a     5.755136
+## 2         b    10.717885
+## 3         a     4.781624
+## 4         b     9.833268
+## 5         a     4.220715
+## 6         b     8.829955</code></pre>
+<pre class="r"><code>#3. Multiple quantitative variables with groups
+m &lt;- data.frame(group = rep(LETTERS[3:4], each = 10), 
+           x = runif(n = 20, min = 10, max = 15),
+           y = runif(n = 20, min = 100, max = 150))
+#4. Repeatedly simulate data with replicate() specifically made for the repeated evaluation of an expression (which will usually involve random number generation).
+set.seed(16) 
+replicate(n = 3, 
+          expr = rnorm(n = 5, mean = 0, sd = 1), 
+          simplify = FALSE )</code></pre>
+<pre><code>## [[1]]
+## [1]  0.4764134 -0.1253800  1.0962162 -1.4442290  1.1478293
+## 
+## [[2]]
+## [1] -0.46841204 -1.00595059  0.06356268  1.02497260  0.57314202
+## 
+## [[3]]
+## [1]  1.8471821  0.1119334 -0.7460373  1.6582137  0.7217206</code></pre>
+<pre class="r"><code>list = list()
+for (i in 1:3) {
+  list[[i]] = rnorm(n = 5, mean = 0, sd = 1)
+}
+list</code></pre>
+<pre><code>## [[1]]
+## [1] -1.6630805  0.5759095  0.4727601 -0.5427317  1.1276871
+## 
+## [[2]]
+## [1] -1.6477976 -0.3141739 -0.1826816  1.4704785 -0.8658988
+## 
+## [[3]]
+## [1] 1.5274670 1.0541781 1.0300710 0.8401609 0.2169647</code></pre>
+</div>
+<div id="a-linear-model" class="section level1">
+<h1>A Linear Model</h1>
+<p><a href="https://aosmith.rbind.io/2018/01/09/simulate-simulate-part1/" class="uri">https://aosmith.rbind.io/2018/01/09/simulate-simulate-part1/</a></p>
+<pre class="r"><code>set.seed(16)
+ngroup = 2
+nrep = 10
+b0 = 5
+b1 = -2
+sd = 2
+
+(group = rep( c(&quot;group1&quot;, &quot;group2&quot;), each = nrep))</code></pre>
+<pre><code>##  [1] &quot;group1&quot; &quot;group1&quot; &quot;group1&quot; &quot;group1&quot; &quot;group1&quot; &quot;group1&quot; &quot;group1&quot; &quot;group1&quot;
+##  [9] &quot;group1&quot; &quot;group1&quot; &quot;group2&quot; &quot;group2&quot; &quot;group2&quot; &quot;group2&quot; &quot;group2&quot; &quot;group2&quot;
+## [17] &quot;group2&quot; &quot;group2&quot; &quot;group2&quot; &quot;group2&quot;</code></pre>
+<pre class="r"><code>(eps = rnorm(n = ngroup*nrep, mean = 0, sd = sd)) </code></pre>
+<pre><code>##  [1]  0.9528268 -0.2507600  2.1924324 -2.8884581  2.2956586 -0.9368241
+##  [7] -2.0119012  0.1271254  2.0499452  1.1462840  3.6943642  0.2238667
+## [13] -1.4920746  3.3164273  1.4434411 -3.3261610  1.1518191  0.9455202
+## [19] -1.0854633  2.2553741</code></pre>
+<pre class="r"><code>(growth = b0 + b1*(group == &quot;group2&quot;) + eps)</code></pre>
+<pre><code>##  [1]  5.952827  4.749240  7.192432  2.111542  7.295659  4.063176  2.988099
+##  [8]  5.127125  7.049945  6.146284  6.694364  3.223867  1.507925  6.316427
+## [15]  4.443441 -0.326161  4.151819  3.945520  1.914537  5.255374</code></pre>
+<pre class="r"><code>dat = data.frame(group, growth)
+growthfit = lm(growth ~ group, data = dat)
+summary(growthfit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = growth ~ group, data = dat)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.039 -1.353  0.336  1.603  2.982 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   5.2676     0.6351   8.294 1.46e-07 ***
+## groupgroup2  -1.5549     0.8982  -1.731    0.101    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.008 on 18 degrees of freedom
+## Multiple R-squared:  0.1427, Adjusted R-squared:  0.0951 
+## F-statistic: 2.997 on 1 and 18 DF,  p-value: 0.1005</code></pre>
+<pre class="r"><code>twogroup_fun = function(nrep = 10, b0 = 5, b1 = -2, sigma = 2) {
+     ngroup = 2
+     group = rep( c(&quot;group1&quot;, &quot;group2&quot;), each = nrep)
+     eps = rnorm(n = ngroup*nrep, mean = 0, sd = sigma)
+     growth = b0 + b1*(group == &quot;group2&quot;) + eps
+     simdat = data.frame(group, growth)
+     growthfit = lm(growth ~ group, data = simdat)
+     growthfit
+}
+set.seed(16)
+twogroup_fun()</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = growth ~ group, data = simdat)
+## 
+## Coefficients:
+## (Intercept)  groupgroup2  
+##       5.268       -1.555</code></pre>
+<pre class="r"><code>twogroup_fun(sigma = 1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = growth ~ group, data = simdat)
+## 
+## Coefficients:
+## (Intercept)  groupgroup2  
+##       5.313       -2.476</code></pre>
+<pre class="r"><code>#There is one special case: if there&#39;s a single unnamed input, the second level list will be dropped. In this case, rerun(n, x) behaves like replicate(n, x, simplify = FALSE).
+sims = replicate(n = 1000, twogroup_fun(), simplify = FALSE )
+reruns &lt;- purrr::rerun(1000, twogroup_fun()) 
+sims[[1]]</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = growth ~ group, data = simdat)
+## 
+## Coefficients:
+## (Intercept)  groupgroup2  
+##       5.290       -1.463</code></pre>
+<pre class="r"><code>reruns[[1]]</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = growth ~ group, data = simdat)
+## 
+## Coefficients:
+## (Intercept)  groupgroup2  
+##       5.027       -1.708</code></pre>
+<pre class="r"><code>tidy(growthfit)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   term        estimate std.error statistic     p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+## 1 (Intercept)     5.27     0.635      8.29 0.000000146
+## 2 groupgroup2    -1.55     0.898     -1.73 0.101</code></pre>
+</div>
+<div id="extract-simulation-results" class="section level1">
+<h1>Extract Simulation Results</h1>
+<pre class="r"><code>reruns %&gt;%
+     map_df(tidy) %&gt;% 
+     dplyr::filter(term == &quot;groupgroup2&quot;) %&gt;%
+     ggplot2::ggplot(aes(x = estimate)) +
+          geom_density(fill = &quot;blue&quot;, alpha = .5) +
+          geom_vline( xintercept = -2)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>#Estimated standard deviation
+#I can do a similar plot exploring estimates of the residual standard deviation. In this case I extract sigma from the model object and put it in a data.frame to plot the distribution with a density plot.
+sims %&gt;%
+     map_dbl(~summary(.x)$sigma) %&gt;%
+     data.frame(sigma = .) %&gt;%
+     ggplot( aes(x = sigma) ) +
+          geom_density(fill = &quot;blue&quot;, alpha = .5) +
+          geom_vline(xintercept = 2)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<pre class="r"><code>#The estimated variation ranges between 1 to just over 3, and the distribution is roughly centered on the true value of 2. Like with the coefficient above, the model performs pretty well on average but any single model can have a biased estimate of the standard deviation.
+#The standard deviation is underestimated a bit more than 50% of the time. This is not uncommon.
+#Curly braces are used to evaluate a series of expressions (separated by new lines or semicolons) and return only the last expression: f &lt;- function() {x &lt;- 1; y &lt;- 2; x + y}
+sims %&gt;%
+  map_dbl(~summary(.x)$sigma) %&gt;%
+  {. &lt; 2} %&gt;%
+  mean()</code></pre>
+<pre><code>## [1] 0.539</code></pre>
+<pre class="r"><code>sims %&gt;%
+     map_df(tidy) %&gt;%
+     dplyr::filter(term == &quot;groupgroup2&quot;) %&gt;%
+     dplyr::pull(p.value) %&gt;%
+     {. &lt;  0.05} %&gt;%
+     mean()</code></pre>
+<pre><code>## [1] 0.563</code></pre>
 </div>
 
 
