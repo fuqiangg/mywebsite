@@ -27,7 +27,7 @@ A great deal of my research falls into two (related yet distinct) streams. First
 
 1. Fu, S. (Q.), Lee Y. E., Dimotakis, N., Koopman, J., & Tepper, B. J. [Title omitted to
 preserve the blind review process] (1st Revise and Resubmit at ***Personnel Psychology***). <br />
-<img src="images/exp.jpg" alt="exp" width="300"/>  <br />
 
 2. Fu, S. (Q.), Dimotakis, N., Greco, L. M., Lennard, A. C. [Title omitted to preserve the blind review process] (Under Review at ***Journal of Applied Psychology***). <br />
-<img src="images/task.jpg" alt="task" width="300"/> <br />
+
+<img src="images/exp.jpg" alt="exp" width="400" align= "left"/> <img src="images/task.jpg" alt="task" width="400" align="right"/> 
