@@ -14,9 +14,20 @@ output:
 knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 ```
 
+My research primary focuses on the affective, cognitive, and behavioral implications of complex contexts, such as those involving changes, ongoing events, or unexpected occurrences. 
+
+A great deal of my research falls into two (related yet distinct) streams. First, I am intrigued by individual responses to externally driven complexity, such as those created by changes in circumstances or underlying temporal patterns. Second, I am interested in internally driven complexity, such as those created by individual expectations of what the workplace will (or should) be. 
+
 #### Peer-reviewed publications
 1. Min, S. W., Humphrey, S. E., Aime, F., Petrenko, O. V., Quade, M. J., & Fu, S. (Q.) (in press). [Dealing with new members: Team members’ reactions to newcomer’s attractiveness and sex.](https://psycnet.apa.org/record/2021-06756-001) ***Journal of Applied Psychology*** 
 
 2. Fu, S. (Q.), Greco, L. M., Lennard, A. C., & Dimotakis, N. (2021). [Anxiety responses to the unfolding COVID-19 crisis: Patterns of change in the experience of prolonged exposure to stressors.](https://psycnet.apa.org/record/2020-92195-001) ***Journal of Applied Psychology, 106(1), 48–61.*** 
 
 #### Manuscript under review
+
+1. Fu, S. (Q.), Lee Y. E., Dimotakis, N., Koopman, J., & Tepper, B. J. [Title omitted to
+preserve the blind review process] (1st Revise and Resubmit at ***Personnel Psychology***). <br />
+<img src="images/exp.jpg" alt="exp" width="300"/>  <br />
+
+2. Fu, S. (Q.), Dimotakis, N., Greco, L. M., Lennard, A. C. [Title omitted to preserve the blind review process] (Under Review at ***Journal of Applied Psychology***). <br />
+<img src="images/task.jpg" alt="task" width="300"/> <br />
