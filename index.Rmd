@@ -29,7 +29,7 @@ My research interests are organizational helping behaviors, employee affect and 
 
 [View my CV](https://drive.google.com/file/d/10iu5ER7NiOvsmsJupH0yGerr6t_fjr_T/view?usp=sharing)
 
-[View my Github page](https://github.com/sherryqfu) <img src="images/github.jpg" alt="exp" width="100" align= "middle"/>
+[View my Github page](https://github.com/sherryqfu) <img src="images/github.jpg" alt="exp" width="85" align= "middle"/>
 
 [Contact me](mailto:sherry.fu@okstate.edu)
 </div>
