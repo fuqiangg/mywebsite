@@ -13,8 +13,16 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 ```
+Last compiled: `r Sys.Date()`
 
-I am passionate to explore more with R! (more to come)
+##### I'm an R enthusiast. Below are some resources and codes I've been recently exploring. I hope you'll join me on this journey!
+
+# R resources
+1. This is the definitive guide for all things R Markdown 
+https://bookdown.org/yihui/rmarkdown/
+
+2. Yihui Xie's bookdown package is used to write books and other long-form articles with R Markdown.
+https://bookdown.org/yihui/bookdown/
 
 I'll first load some packages so I can use all the functions later
 ```{r results='hide', message=FALSE, warning=FALSE}
@@ -41,33 +49,34 @@ library(mvtnorm) # References rmvnorm()
 library(ellipse) # References ellipse()
 ```
 
-# Simulation 
-2021 | 3 | 7 Last compiled: `r Sys.Date()`
+# Basic Functions for Simulations 
 
-I am learning how to simulate data in R. Say I want to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then plot a histogram.
-
+Let's try some basic distributions.
+1) Say I want to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then plot a histogram.
+(reference: https://aosmith.rbind.io)
 ```{r}
+#Generating random numbers
 samples <- rnorm(100, mean=0, sd=1)
 hist(samples)
 ```
 
-# Basic Functions for Simulations 
-Let's try some basic distributions
-(reference: https://aosmith.rbind.io)
+2) Using vectors of values for the parameter arguments
 ```{r}
-#Generating random numbers
-#Using vectors of values for the parameter arguments
-rnorm(n = 10, mean = c(0, 5, 20), sd = c(1, 5, 20))
+rnorm(n = 100, mean = c(0, 5, 20), sd = c(1, 5, 20))
+hist(samples)
   #Things are different for the n argument. If a vector is passed to n, the length of that vector is taken to be the number required (see Arguments section of documentation for details). Here’s an example. Since the vector for n is length 3, we only get 3 values.This has caught me before, as I would expect this code to give me different numbers per group instead of ignoring the information in the vector.
 rnorm(n = c(1, 2, 3), mean = c(0, 5, 20), sd = c(1, 1, 1))
-#runif() 
- #pulls from the uniform distribution. The uniform distribution is a continuous    distribution, with numbers uniformly distributed between some minimum and maximum.
-runif(n = 5, min = 0, max = 1)
+```
 
-#Discrete counts with rpois() 
-#An alternative to the Poisson distribution for discrete integers is the negative binomial distribution. Packages MASS has a function called rnegbin() for random number generation from the negative binomial distribution.
- #generating discrete integers (including 0) from a Poisson distribution with rpois().
-#The single parameter argument, lambda, is the mean. It has no default setting so must always be defined by the user.
+3) Uniform distribution. The uniform distribution is a continuous distribution, with numbers uniformly distributed between some minimum and maximum.
+```{r}
+runif(n = 5, min = 0, max = 1)
+```
+4) Discrete counts with rpois()-generating discrete integers (including 0) from a Poisson distribution with rpois().
+The single parameter argument, lambda, is the mean. It has no default setting so must always be defined by the user.
+
+An alternative to the Poisson distribution for discrete integers is the negative binomial distribution. Packages MASS has a function called rnegbin() for random number generation from the negative binomial distribution.
+```{r}
 rpois(n = 5, lambda = 2.5)
 y = rpois(10000, lambda = 5)
 summary(y)

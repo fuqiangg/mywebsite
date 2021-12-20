@@ -346,7 +346,16 @@ div.tocify {
 </div>
 
 
-<p>I am passionate to explore more with R! (more to come)</p>
+<p>Last compiled: 2021-12-19</p>
+<div id="im-an-r-enthusiast.-below-are-some-resources-and-codes-ive-been-recently-exploring.-i-hope-youll-join-me-on-this-journey" class="section level5">
+<h5>I’m an R enthusiast. Below are some resources and codes I’ve been recently exploring. I hope you’ll join me on this journey!</h5>
+</div>
+<div id="r-resources" class="section level1">
+<h1>R resources</h1>
+<ol style="list-style-type: decimal">
+<li><p>This is the definitive guide for all things R Markdown <a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a></p></li>
+<li><p>Yihui Xie’s bookdown package is used to write books and other long-form articles with R Markdown. <a href="https://bookdown.org/yihui/bookdown/" class="uri">https://bookdown.org/yihui/bookdown/</a></p></li>
+</ol>
 <p>I’ll first load some packages so I can use all the functions later</p>
 <pre class="r"><code>library(here)
 library(multilevel)
@@ -369,47 +378,66 @@ library(multcomp)
 library(jtools) # for summ()
 library(mvtnorm) # References rmvnorm()
 library(ellipse) # References ellipse()</code></pre>
-<div id="simulation" class="section level1">
-<h1>Simulation</h1>
-<p>2021 | 3 | 7 Last compiled: 2021-12-19</p>
-<p>I am learning how to simulate data in R. Say I want to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then plot a histogram.</p>
-<pre class="r"><code>samples &lt;- rnorm(100, mean=0, sd=1)
-hist(samples)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="basic-functions-for-simulations" class="section level1">
 <h1>Basic Functions for Simulations</h1>
-<p>Let’s try some basic distributions (reference: <a href="https://aosmith.rbind.io" class="uri">https://aosmith.rbind.io</a>)</p>
+<p>Let’s try some basic distributions. 1) Say I want to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then plot a histogram. (reference: <a href="https://aosmith.rbind.io" class="uri">https://aosmith.rbind.io</a>)</p>
 <pre class="r"><code>#Generating random numbers
-#Using vectors of values for the parameter arguments
-rnorm(n = 10, mean = c(0, 5, 20), sd = c(1, 5, 20))</code></pre>
-<pre><code>##  [1]  0.6029337 10.4268528 70.0770101 -1.7427271 12.5175698 38.6879607
-##  [7] -1.3948903  7.3217429 10.0007294 -0.3245730</code></pre>
+samples &lt;- rnorm(100, mean=0, sd=1)
+hist(samples)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Using vectors of values for the parameter arguments</li>
+</ol>
+<pre class="r"><code>rnorm(n = 100, mean = c(0, 5, 20), sd = c(1, 5, 20))</code></pre>
+<pre><code>##   [1]   0.37664936  -1.74803090  -1.61381894   0.73370698   7.35568694
+##   [6]   4.00799175   0.96664463  11.32473604  13.27653825   0.16689076
+##  [11]  13.15238722  15.67245956  -1.25185938   4.80632850  21.13078520
+##  [16]   0.90374073   9.50633538  32.14613486  -0.65920998   4.57544122
+##  [21]  17.73987833   0.51976957   5.40762853  31.37283868  -0.01814180
+##  [26]   3.89494678  26.03513660  -0.74936031   1.99650849  -8.42610292
+##  [31]   0.11526873   3.50976516  24.45579560  -1.02761748   6.28816161
+##  [36]  21.29907626   0.98670876   1.02053397 -23.88688228   1.34916731
+##  [41]   3.16756705  -8.41188554   1.29791014   0.52233353   6.21006578
+##  [46]   0.06306044   4.70675882   1.55276679   1.86525744   0.54409440
+##  [51]  50.73335319   0.23406320   7.11131530  39.00204922   0.08855774
+##  [56]   0.97546185   7.21967326   0.25267372   3.13056156  31.07211183
+##  [61]   1.26258801   1.81873147  51.82312150   2.78415366   2.70215056
+##  [66]  11.53075033  -0.56649181  -0.32732189  29.21619446  -0.08120951
+##  [71]   6.59970510 -11.82783445  -0.72358480  17.32699948   8.77036175
+##  [76]   0.10386413   8.03624157  21.24022193  -0.45547637   7.82408948
+##  [81]  26.43034233  -0.03018643   2.71550584  32.46828735  -1.37598067
+##  [86]   6.25104277  -0.03213090  -1.88936937   0.62206984   2.26822527
+##  [91]  -1.40501719  -1.76390678 -12.86838688  -0.68815227  -1.23755713
+##  [96]  42.69746337  -1.76506648  12.75754887  30.11397828  -0.06621071</code></pre>
+<pre class="r"><code>hist(samples)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>  #Things are different for the n argument. If a vector is passed to n, the length of that vector is taken to be the number required (see Arguments section of documentation for details). Here’s an example. Since the vector for n is length 3, we only get 3 values.This has caught me before, as I would expect this code to give me different numbers per group instead of ignoring the information in the vector.
 rnorm(n = c(1, 2, 3), mean = c(0, 5, 20), sd = c(1, 1, 1))</code></pre>
-<pre><code>## [1] -0.04367568  2.76384295 19.53040473</code></pre>
-<pre class="r"><code>#runif() 
- #pulls from the uniform distribution. The uniform distribution is a continuous    distribution, with numbers uniformly distributed between some minimum and maximum.
-runif(n = 5, min = 0, max = 1)</code></pre>
-<pre><code>## [1] 0.40988053 0.06414436 0.53739693 0.70213513 0.94970398</code></pre>
-<pre class="r"><code>#Discrete counts with rpois() 
-#An alternative to the Poisson distribution for discrete integers is the negative binomial distribution. Packages MASS has a function called rnegbin() for random number generation from the negative binomial distribution.
- #generating discrete integers (including 0) from a Poisson distribution with rpois().
-#The single parameter argument, lambda, is the mean. It has no default setting so must always be defined by the user.
-rpois(n = 5, lambda = 2.5)</code></pre>
-<pre><code>## [1] 1 2 5 1 5</code></pre>
+<pre><code>## [1] -1.543175  4.981421 18.545471</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Uniform distribution. The uniform distribution is a continuous distribution, with numbers uniformly distributed between some minimum and maximum.</li>
+</ol>
+<pre class="r"><code>runif(n = 5, min = 0, max = 1)</code></pre>
+<pre><code>## [1] 0.9806435 0.9613330 0.8366271 0.1990095 0.1991617</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Discrete counts with rpois()-generating discrete integers (including 0) from a Poisson distribution with rpois(). The single parameter argument, lambda, is the mean. It has no default setting so must always be defined by the user.</li>
+</ol>
+<p>An alternative to the Poisson distribution for discrete integers is the negative binomial distribution. Packages MASS has a function called rnegbin() for random number generation from the negative binomial distribution.</p>
+<pre class="r"><code>rpois(n = 5, lambda = 2.5)</code></pre>
+<pre><code>## [1]  1  3  1 10  3</code></pre>
 <pre class="r"><code>y = rpois(10000, lambda = 5)
 summary(y)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   0.000   3.000   5.000   4.988   6.000  17.000</code></pre>
+##   0.000   3.000   5.000   5.004   6.000  14.000</code></pre>
 <pre class="r"><code>hist(y) #mild right-skew when we draw a histogram of the values.</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="Journal_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code>y = rpois(10000, lambda = 100) #Poisson distribution with a mean of 100. The range of values is pretty narrow; there are no values even remotely close to 0, and distribution is now pretty symmetric.
 summary(y)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    60.0    93.0   100.0   100.1   107.0   139.0</code></pre>
+##   62.00   93.00  100.00   99.96  107.00  142.00</code></pre>
 <pre class="r"><code>hist(y) </code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p><img src="Journal_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
 <pre class="r"><code>#Generate character vectors with rep()
 rep(letters[1:2], each = 3) #each </code></pre>
 <pre><code>## [1] &quot;a&quot; &quot;a&quot; &quot;a&quot; &quot;b&quot; &quot;b&quot; &quot;b&quot;</code></pre>
@@ -430,23 +458,23 @@ factor = rep(LETTERS[3:5], times = 2)
 response = rnorm(n = 6, mean = 0, sd = 1) 
 data.frame(group, factor, response )</code></pre>
 <pre><code>##   group factor   response
-## 1     a      C  0.2250695
-## 2     a      D -0.3906908
-## 3     a      E  1.4977746
-## 4     b      C -1.3932394
-## 5     b      D  0.1447946
-## 6     b      E  1.6680878</code></pre>
+## 1     a      C -0.1508880
+## 2     a      D -1.2978746
+## 3     a      E -0.7753601
+## 4     b      C  0.3202721
+## 5     b      D -0.3714052
+## 6     b      E  0.5690859</code></pre>
 <pre class="r"><code>#2. Simultae data with a difference among groups
 group_two = rep(letters[1:2], times = 3) #or length.out = 6
 response_two = rnorm(n = 6, mean = c(5, 10), sd = 1)
 data.frame(group_two, response_two)</code></pre>
 <pre><code>##   group_two response_two
-## 1         a     5.755136
-## 2         b    10.717885
-## 3         a     4.781624
-## 4         b     9.833268
-## 5         a     4.220715
-## 6         b     8.829955</code></pre>
+## 1         a     4.475084
+## 2         b     9.476478
+## 3         a     4.293260
+## 4         b    11.773119
+## 5         a     5.859126
+## 6         b     9.766662</code></pre>
 <pre class="r"><code>#3. Multiple quantitative variables with groups
 m &lt;- data.frame(group = rep(LETTERS[3:4], each = 10), 
            x = runif(n = 20, min = 10, max = 15),
@@ -582,7 +610,7 @@ sims[[1]]</code></pre>
      ggplot2::ggplot(aes(x = estimate)) +
           geom_density(fill = &quot;blue&quot;, alpha = .5) +
           geom_vline( xintercept = -2)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="Journal_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre class="r"><code>#Estimated standard deviation
 #I can do a similar plot exploring estimates of the residual standard deviation. In this case I extract sigma from the model object and put it in a data.frame to plot the distribution with a density plot.
 sims %&gt;%
@@ -591,7 +619,7 @@ sims %&gt;%
      ggplot( aes(x = sigma) ) +
           geom_density(fill = &quot;blue&quot;, alpha = .5) +
           geom_vline(xintercept = 2)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<p><img src="Journal_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
 <pre class="r"><code>#The estimated variation ranges between 1 to just over 3, and the distribution is roughly centered on the true value of 2. Like with the coefficient above, the model performs pretty well on average but any single model can have a biased estimate of the standard deviation.
 #The standard deviation is underestimated a bit more than 50% of the time. This is not uncommon.
 #Curly braces are used to evaluate a series of expressions (separated by new lines or semicolons) and return only the last expression: f &lt;- function() {x &lt;- 1; y &lt;- 2; x + y}
