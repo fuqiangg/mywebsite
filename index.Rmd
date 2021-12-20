@@ -26,17 +26,20 @@ Hi! I am Sherry (Qiang) Fu, a PhD candidate in Management at the Spears School o
 I am expected to graduate in May 2022.
 
 My research interests are organizational helping behaviors, employee affect and emotions, motivation and stress, and research methods. 
+<br />
+<br />
 
 [View my CV](https://drive.google.com/file/d/10iu5ER7NiOvsmsJupH0yGerr6t_fjr_T/view?usp=sharing) 
+<br />
 
 [View my Github page](https://github.com/sherryqfu) <img src="images/github.jpg" alt="github" width="85" align= "middle"/>
+<br />
 
 [Contact me](mailto:sherry.fu@okstate.edu)
 </div>
 <div class="col-sm-6">
 
 
-
-![](images/IMG_6111.JPG)
+<img src="images/IMG_6111.JPG" alt="IMG_6111" width="300"/> 
 </a>
 </div>
