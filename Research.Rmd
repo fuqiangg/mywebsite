@@ -19,15 +19,25 @@ My research primary focuses on the affective, cognitive, and behavioral implicat
 A great deal of my research falls into two (related yet distinct) streams. First, I am intrigued by individual responses to externally driven complexity, such as those created by changes in circumstances or underlying temporal patterns. Second, I am interested in internally driven complexity, such as those created by individual expectations of what the workplace will (or should) be. 
 
 #### Peer-reviewed publications
-1. Min, S. W., Humphrey, S. E., Aime, F., Petrenko, O. V., Quade, M. J., & Fu, S. (Q.) (in press). [Dealing with new members: Team members’ reactions to newcomer’s attractiveness and sex.](https://psycnet.apa.org/record/2021-06756-001) ***Journal of Applied Psychology*** 
+1. Yoon., S., Koopman, J., Dimotakis, N., Simon, L., Liang, L. H., Ni., D., Zheng, X., Fu, S. (Q.), Lee, Y. E., Tang, P. M., Ng., C. T. S., Bush, J., Darden, T., Forrester, J., Tepper, B., & Brown, D. (in press). Consistent and low is the only way to go: A polynomial regression approach to the effect of abusive supervision inconsistency. ***Journal of Applied Psychology*** 
 
-2. Fu, S. (Q.), Greco, L. M., Lennard, A. C., & Dimotakis, N. (2021). [Anxiety responses to the unfolding COVID-19 crisis: Patterns of change in the experience of prolonged exposure to stressors.](https://psycnet.apa.org/record/2020-92195-001) ***Journal of Applied Psychology, 106(1), 48–61.*** 
+2. Kim K. Y., Messersmith, J. G., Pieper, J. R., Baik, K. & Fu, S. (Q.) (in press). [High performance work systems and employee mental health: The roles of psychological empowerment, work role overload, and organizational identification.](https://onlinelibrary.wiley.com/doi/abs/10.1002/hrm.22160) ***Human Resource Management*** 
+
+3. Fu, H., Fu, S. (Q.), Yu, J., Yang, M., Chen, W. (2023). Two sources of influence: A conditional trickle-down model of service performance in China. ***Asia Pacific Business Review, 29(1), 28–49.*** 
+
+4. Dimotakis, N., Lambert, L. S., Fu, S. (Q.), Boulamatsi, A., Runnalls, B., Smith, T. A., Corner, A. J., Tepper, B. J., & Maurer, T. (2023). [Gains and losses: Week-to-week changes in leader-follower relationships.](https://journals.aom.org/doi/10.5465/amj.2019.1100) ***Academy of Management Journal, 66(1), 248–275.***
+
+5. Min, S. W., Humphrey, S. E., Aime, F., Petrenko, O. V., Quade, M. J., & Fu, S. (Q.) (in press). [Dealing with new members: Team members’ reactions to newcomer’s attractiveness and sex.](https://psycnet.apa.org/record/2021-06756-001) ***Journal of Applied Psychology*** 
+
+6. Fu, S. (Q.), Greco, L. M., Lennard, A. C., & Dimotakis, N. (2021). [Anxiety responses to the unfolding COVID-19 crisis: Patterns of change in the experience of prolonged exposure to stressors.](https://psycnet.apa.org/record/2020-92195-001) ***Journal of Applied Psychology, 106(1), 48–61.*** 
+
+
 
 #### Manuscript under review
 
 1. Fu, S. (Q.), Lee Y. E., Dimotakis, N., Koopman, J., & Tepper, B. J. [Title omitted to
-preserve the blind review process] (1st Revise and Resubmit at ***Personnel Psychology***). <br />
+preserve the blind review process] (under 3rd Review at ***Personnel Psychology***). <br />
 
-2. Fu, S. (Q.), Dimotakis, N., Greco, L. M., Lennard, A. C. [Title omitted to preserve the blind review process] (Under Review at ***Journal of Applied Psychology***). <br />
+2. Greco, L. M., Lennard, A. C., Dimotakis, N., Fu, S. (Q.) [Title omitted to preserve the blind review process] (Under Review at ***Personnel Psychology***). <br />
 
 <img src="images/exp.jpg" alt="exp" width="400" align= "left"/> <img src="images/task.jpg" alt="task" width="400" align="right"/> 

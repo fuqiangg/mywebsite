@@ -24,19 +24,19 @@ output: html_document
 
 Greetings! Welcome to my website. My name is Sherry (Qiang) Fu, and I'm currently an Assistant Professor in Management at Colorado State University.
 
-As a researcher, my interests lie in the field of organizational helping behaviors, employee affect and emotions, motivation and stress, and research methods. 
+As a researcher, my interests lie in the areas of organizational helping behaviors, employee affect and emotions, motivation and stress, and quantitative research methods. 
 
 Thank you for visiting my page, and please feel free to reach out to me.
 <br />
 <br />
 
-[View my CV](https://drive.google.com/file/d/10iu5ER7NiOvsmsJupH0yGerr6t_fjr_T/view?usp=sharing) 
+[View my CV](https://drive.google.com/file/d/1vFKqwzLahtzUK76rg3ryLCVbUe9w23tt/view?usp=sharing) 
 <br />
 
 [View my Github page](https://github.com/sherryqfu) <img src="images/github.jpg" alt="github" width="85" align= "middle"/>
 <br />
 
-[Contact me](mailto:sherry.fu@colostate.edu)
+[Contact me](mailto:sherry.fu@colostate.edu) <img src="images/CSU_Signature.png" alt="CSU_Signature" width=200 align= "middle"/>
 </div>
 <div class="col-sm-6">
 
