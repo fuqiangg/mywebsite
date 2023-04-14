@@ -22,11 +22,10 @@ output: html_document
 
 ### About me
 
-Greetings! Welcome to my website. My name is Sherry (Qiang) Fu, and I'm currently an Assistant Professor in Management at Colorado State University.
+Hi! I am Sherry (Qiang) Fu, a PhD candidate in Management at the Spears School of Business in Oklahoma State University.
+I am expected to graduate in May 2022.
 
-As a researcher, my interests lie in the field of organizational helping behaviors, employee affect and emotions, motivation and stress, and research methods. 
-
-Thank you for visiting my page, and please feel free to reach out to me.
+My research interests are organizational helping behaviors, employee affect and emotions, motivation and stress, and research methods. 
 <br />
 <br />
 
@@ -36,7 +35,7 @@ Thank you for visiting my page, and please feel free to reach out to me.
 [View my Github page](https://github.com/sherryqfu) <img src="images/github.jpg" alt="github" width="85" align= "middle"/>
 <br />
 
-[Contact me](mailto:sherry.fu@colostate.edu)
+[Contact me](mailto:sherry.fu@okstate.edu)
 </div>
 <div class="col-sm-6">
 

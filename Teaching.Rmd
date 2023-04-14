@@ -15,9 +15,11 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 ```
 
 #### Instructor
-1. MGMT 3123, Oklahoma State University: **Managing Behavior in Organizations**, Spring 2021 
+1. MGT 320, Colorado State University: **Contemporary Management Principles/Practices**,Fall 2023; Spring 2023; Fall 2022;
 
-2. MNGT 361, University of Nebraska-Lincoln: **Human Resource Management**, Spring 2019 
+2. MGMT 3123, Oklahoma State University: **Managing Behavior in Organizations**, Spring 2021 
+
+3. MNGT 361, University of Nebraska-Lincoln: **Human Resource Management**, Spring 2019 
 
 #### Graduate Assistant
 1. MGMT 6553: **Management Research Methods III** (Executive PhD; Dr. Nikolaos Dimotakis), Fall 2021, Fall 2020, Fall 2019
