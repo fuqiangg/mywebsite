@@ -15,7 +15,7 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 ```
 
 #### Instructor
-1. MGT 320, Colorado State University: **Contemporary Management Principles/Practices**,Fall 2023; Spring 2023; Fall 2022;
+1. MGT 320, Colorado State University: **Contemporary Management Principles/Practices**,Fall 2023; Spring 2023; Fall 2022
 
 2. MGMT 3123, Oklahoma State University: **Managing Behavior in Organizations**, Spring 2021 
 

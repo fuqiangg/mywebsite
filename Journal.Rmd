@@ -49,10 +49,128 @@ library(mvtnorm) # References rmvnorm()
 library(ellipse) # References ellipse()
 ```
 
-# Basic Functions for Simulations 
+## Interactive plots for response surface with a cutting plane
+1. Create surface and cutting plane 
+```{r}
+compose1 <- function(f, c) {
+  g <- function(y) f(c, y)
+  return(g)
+}
 
+compose2 <- function(f, c) {
+  g <- function(x) f(x, c)
+  return(g)
+}
+
+composefh <- function(f, h) {
+  g <- function(x) f(x, h(x))
+  return(g)
+}
+
+get_curve <- function(M, v, f) {
+  x0 <- M[1]
+  y0 <- M[2]
+  a <- v[1]
+  b <- v[2]
+  
+  if (a == 0 & b != 0) {
+    g <- compose1(f, x0)
+    id <- 1
+  } else if (a != 0 & b == 0) {
+    g <- compose2(f, y0)
+    id <- 2
+  } else {
+    h <- function(x) y0 + b * (x - x0) / a
+    g <- composefh(f, h(x))
+    id <- 3
+  }
+  return(list(g = g, id = id))
+}
+
+
+get_plane <- function(M, v, id, xx, yy, zz) {
+  x0 <- M[1]
+  y0 <- M[2]
+  a <- v[1]
+  b <- v[2]
+
+  if (id == 1) {
+    YZ <- expand.grid(yy, zz)
+    X <- matrix(rep(x0, nrow(YZ)), nrow = nrow(YZ), ncol = ncol(YZ))
+    Y <- matrix(YZ[,1], nrow = nrow(YZ), ncol = ncol(YZ))
+    Z <- matrix(YZ[,2], nrow = nrow(YZ), ncol = ncol(YZ))
+  } else if (id == 2) {
+    XZ <- expand.grid(xx, zz)
+    X <- matrix(XZ[,1], nrow = nrow(XZ), ncol = ncol(XZ))
+    Y <- matrix(rep(y0, nrow(XZ)), nrow = nrow(XZ), ncol = ncol(XZ))
+    Z <- matrix(XZ[,2], nrow = nrow(XZ), ncol = ncol(XZ))
+  } else if (id == 3) {
+    XZ <- expand.grid(xx, zz)
+    X <- matrix(XZ[,1], nrow = nrow(XZ), ncol = ncol(XZ))
+    Y <- matrix(y0 + b * (X - x0) / a, nrow = nrow(XZ), ncol = ncol(XZ))
+    Z <- matrix(XZ[,2], nrow = nrow(XZ), ncol = ncol(XZ))
+  } else {
+    X <- NULL
+    Y <- NULL
+    Z <- NULL
+  }
+
+  return(list(X = X, Y = Y, Z = Z))
+}
+
+f_surf <- function(x, y) {
+  2 + 0.1 * x + 0.3 * y + 0.1 * x^2 - 0.3 * x * y + 0.2 * y^2
+}
+
+xx <- seq(-3, 3, length.out = 300)
+yy <- seq(-3, 3, length.out = 300)
+x <- outer(xx, yy, FUN = function(a, b) a)
+y <- outer(xx, yy, FUN = function(a, b) b)
+z <- outer(xx, yy, FUN = f_surf)
+
+zz <- seq(1, 5, length.out = 100)
+
+M <- c(1, 1, 0)
+v <- c(1, 1, 0)
+curve_data <- get_curve(M, v, f_surf)
+g <- curve_data$g
+id <- curve_data$id
+
+plane_data <- get_plane(M, v, id, xx, yy, zz)
+X <- plane_data$X
+Y <- plane_data$Y
+Z <- plane_data$Z
+```
+
+2. Interactive plot 
+```{r}
+figure <- plot_ly() %>%
+  add_surface(x = x, y = y, z = z, colorscale = list(list(0, "rgba(150, 150, 150, 0.1)"), list(1, "rgba(150, 150, 150, 0.1)")), showscale = FALSE, 
+              contours = list(x = list(show = TRUE, color = "rgba(100,100,100, 0.8)", width = 1, usecolormap = FALSE, start = -3, end = 3, size = 0.2),
+                              y = list(show = TRUE, color = "rgba(100,100,100, 0.8)", width = 1, usecolormap = FALSE, start = -3, end = 3, size = 0.2),
+                              z = list(show = FALSE))) %>%
+  add_surface(x = xx, y = yy, z = Z, colorscale = list(list(0, "rgb(180, 255, 180)"), list(1, "rgb(180, 255, 180)")), showscale = FALSE, opacity = 0.5, contours = list(z = list(show = FALSE))) %>%
+add_trace(x = X[, 1], y = Y[, 1], z = Z[, 1], type = "scatter3d", 
+          mode = "lines", line = list(color = "rgba(188, 201, 151, 0.9)", width = 2, dash = "solid"), 
+          surface = list(show = TRUE, fill = "toself", color = "rgba(188, 201, 151, 0.5)", opacity = 0.1),
+          showlegend = FALSE) %>%
+  add_trace(x = c(2, 2), y = c(2, 2), z = c(1, 5), type = "scatter3d", mode = "lines", line = list(color = "black", width = 1), showlegend = FALSE) %>%
+  add_trace(x = c(2, 2), y = c(-2, -2), z = c(1, 5), type = "scatter3d", mode = "lines", line = list(color = "black", width = 1), showlegend = FALSE) %>%
+  layout(scene = list(xaxis = list(nticks = 5, range = c(2, -2), showbackground = FALSE, showgrid = FALSE, showline = TRUE, zeroline = FALSE),
+                      yaxis = list(nticks = 5, range = c(2, -2),showbackground = FALSE, showgrid = FALSE,showline = TRUE, zeroline = FALSE),
+                      zaxis = list(nticks = 5, range = c(1, 5), tickmode = "linear", tick0 = 1, dtick = 1, showbackground = FALSE, showgrid = 
+                                     TRUE,showline = TRUE)),
+         margin = list(r = 20, l = 10, b = 10, t = 10),
+         font = list(family = "Times New Roman"))
+
+figure
+
+```
+
+
+# Basic Functions for Simulations 
 Let's try some basic distributions.
-1) Say I want to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then plot a histogram.
+1) I would like to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then plot a histogram.
 (reference: https://aosmith.rbind.io)
 ```{r}
 #Generating random numbers
