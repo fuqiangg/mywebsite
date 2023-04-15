@@ -1,4 +1,3 @@
-base
 here
 nlme
 MASS
@@ -29,3 +28,6 @@ TH.data
 multcomp
 jtools
 ellipse
+metadat
+numDeriv
+plotly

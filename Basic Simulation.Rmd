@@ -1,0 +1,144 @@
+---
+title: "Basic Simulation"
+author: "Sherry"
+date: "2023-04-15"
+output: html_document
+---
+
+# 2. Basic Functions for Simulations 
+1) I would like to sample 100 numbers from a normal distribution with mean = 0, and standard deviation =1, and then plot a histogram.
+(reference: https://aosmith.rbind.io)
+```{r}
+#Generating random numbers
+samples <- rnorm(100, mean=0, sd=1)
+hist(samples)
+```
+
+2) Using vectors of values for the parameter arguments
+```{r}
+rnorm(n = 100, mean = c(0, 5, 20), sd = c(1, 5, 20))
+hist(samples)
+  #Things are different for the n argument. If a vector is passed to n, the length of that vector is taken to be the number required (see Arguments section of documentation for details). Here’s an example. Since the vector for n is length 3, we only get 3 values.This has caught me before, as I would expect this code to give me different numbers per group instead of ignoring the information in the vector.
+rnorm(n = c(1, 2, 3), mean = c(0, 5, 20), sd = c(1, 1, 1))
+```
+
+3) Uniform distribution. The uniform distribution is a continuous distribution, with numbers uniformly distributed between some minimum and maximum.
+```{r}
+runif(n = 5, min = 0, max = 1)
+```
+4) Discrete counts with rpois()-generating discrete integers (including 0) from a Poisson distribution with rpois().
+The single parameter argument, lambda, is the mean. It has no default setting so must always be defined by the user.
+
+An alternative to the Poisson distribution for discrete integers is the negative binomial distribution. Packages MASS has a function called rnegbin() for random number generation from the negative binomial distribution.
+```{r}
+rpois(n = 5, lambda = 2.5)
+y = rpois(10000, lambda = 5)
+summary(y)
+hist(y) #mild right-skew when we draw a histogram of the values.
+y = rpois(10000, lambda = 100) #Poisson distribution with a mean of 100. The range of values is pretty narrow; there are no values even remotely close to 0, and distribution is now pretty symmetric.
+summary(y)
+hist(y) 
+
+#Generate character vectors with rep()
+rep(letters[1:2], each = 3) #each 
+rep(letters[1:2], times = 3) #The times argument can be used when we want to repeat the whole vector rather than repeating it element-wise.
+rep(letters[1:2], times = c(2, 4))
+rep(letters[1:2], each = 2, times = 3)
+rep(letters[1:2], each = 2, length.out = 7)
+```
+
+# Examples
+```{r}
+#1. Simulate data with no differences among two groups
+group  = rep(letters[1:2], each = 3)
+factor = rep(LETTERS[3:5], times = 2)
+response = rnorm(n = 6, mean = 0, sd = 1) 
+data.frame(group, factor, response )
+#2. Simultae data with a difference among groups
+group_two = rep(letters[1:2], times = 3) #or length.out = 6
+response_two = rnorm(n = 6, mean = c(5, 10), sd = 1)
+data.frame(group_two, response_two)
+#3. Multiple quantitative variables with groups
+m <- data.frame(group = rep(LETTERS[3:4], each = 10), 
+           x = runif(n = 20, min = 10, max = 15),
+           y = runif(n = 20, min = 100, max = 150))
+#4. Repeatedly simulate data with replicate() specifically made for the repeated evaluation of an expression (which will usually involve random number generation).
+set.seed(16) 
+replicate(n = 3, 
+          expr = rnorm(n = 5, mean = 0, sd = 1), 
+          simplify = FALSE )
+list = list()
+for (i in 1:3) {
+  list[[i]] = rnorm(n = 5, mean = 0, sd = 1)
+}
+list
+```
+
+# A Linear Model 
+https://aosmith.rbind.io/2018/01/09/simulate-simulate-part1/
+```{r}
+set.seed(16)
+ngroup = 2
+nrep = 10
+b0 = 5
+b1 = -2
+sd = 2
+
+(group = rep( c("group1", "group2"), each = nrep))
+(eps = rnorm(n = ngroup*nrep, mean = 0, sd = sd)) 
+(growth = b0 + b1*(group == "group2") + eps)
+dat = data.frame(group, growth)
+growthfit = lm(growth ~ group, data = dat)
+summary(growthfit)
+
+twogroup_fun = function(nrep = 10, b0 = 5, b1 = -2, sigma = 2) {
+     ngroup = 2
+     group = rep( c("group1", "group2"), each = nrep)
+     eps = rnorm(n = ngroup*nrep, mean = 0, sd = sigma)
+     growth = b0 + b1*(group == "group2") + eps
+     simdat = data.frame(group, growth)
+     growthfit = lm(growth ~ group, data = simdat)
+     growthfit
+}
+set.seed(16)
+twogroup_fun()
+twogroup_fun(sigma = 1)
+#There is one special case: if there's a single unnamed input, the second level list will be dropped. In this case, rerun(n, x) behaves like replicate(n, x, simplify = FALSE).
+sims = replicate(n = 1000, twogroup_fun(), simplify = FALSE )
+reruns <- purrr::rerun(1000, twogroup_fun()) 
+sims[[1]]
+reruns[[1]]
+tidy(growthfit)
+```
+
+# Extract Simulation Results
+```{r}
+reruns %>%
+     map_df(tidy) %>% 
+     dplyr::filter(term == "groupgroup2") %>%
+     ggplot2::ggplot(aes(x = estimate)) +
+          geom_density(fill = "blue", alpha = .5) +
+          geom_vline( xintercept = -2)
+#Estimated standard deviation
+#I can do a similar plot exploring estimates of the residual standard deviation. In this case I extract sigma from the model object and put it in a data.frame to plot the distribution with a density plot.
+sims %>%
+     map_dbl(~summary(.x)$sigma) %>%
+     data.frame(sigma = .) %>%
+     ggplot( aes(x = sigma) ) +
+          geom_density(fill = "blue", alpha = .5) +
+          geom_vline(xintercept = 2)
+#The estimated variation ranges between 1 to just over 3, and the distribution is roughly centered on the true value of 2. Like with the coefficient above, the model performs pretty well on average but any single model can have a biased estimate of the standard deviation.
+#The standard deviation is underestimated a bit more than 50% of the time. This is not uncommon.
+#Curly braces are used to evaluate a series of expressions (separated by new lines or semicolons) and return only the last expression: f <- function() {x <- 1; y <- 2; x + y}
+sims %>%
+  map_dbl(~summary(.x)$sigma) %>%
+  {. < 2} %>%
+  mean()
+
+sims %>%
+     map_df(tidy) %>%
+     dplyr::filter(term == "groupgroup2") %>%
+     dplyr::pull(p.value) %>%
+     {. <  0.05} %>%
+     mean()
+```
