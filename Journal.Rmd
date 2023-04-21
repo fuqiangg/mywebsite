@@ -124,7 +124,7 @@ Y <- plane_data$Y
 Z <- plane_data$Z
 ```
 
-2. Interactive plot 
+### 2. Interactive plot 
 ```{r}
 figure <- plot_ly() %>%
   add_surface(x = x, y = y, z = z, colorscale = list(list(0, "rgba(150, 150, 150, 0.1)"), list(1, "rgba(150, 150, 150, 0.1)")), showscale = FALSE, 
@@ -146,8 +146,9 @@ add_trace(x = X[, 1], y = Y[, 1], z = Z[, 1], type = "scatter3d",
          font = list(family = "Times New Roman"))
 
 figure
-
 ```
 
+References
+https://community.plotly.com/t/slicing-3d-surface-plot-along-a-user-selected-axis/40771/6
 
 
